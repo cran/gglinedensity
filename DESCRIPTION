@@ -1,9 +1,10 @@
 Package: gglinedensity
 Title: Make DenseLines Heatmaps with 'ggplot2'
-Version: 0.1.0
-Description: Create a raster plot of line density using a 'ggplot2' statistic
-    implementing the DenseLines algorithm, which
-    "normalizes time series by the arc length to compute accurate densities"
+Version: 0.1.1
+Description: Visualise overlapping time series lines as a heatmap of line
+    density. Provides a 'ggplot2' statistic implementing the DenseLines
+    algorithm, which "normalizes time series by the arc length to compute
+    accurate densities"
     (Moritz and Fisher, 2018) <doi:10.48550/arXiv.1808.06019>.
 Authors@R: c(
     person("Harry", "Thompson", , "harry@mayesfield.uk", role = c("cre", "aut", "cph")),
@@ -18,13 +19,14 @@ Authors@R: c(
 License: GPL (>= 3)
 Encoding: UTF-8
 RoxygenNote: 7.3.2
-SystemRequirements: Cargo (Rust's package manager), rustc >= 1.65.0
-Config/gglinedensity/MSRV: 1.65.0
+SystemRequirements: Cargo (Rust's package manager), rustc >= 1.70.0
+Config/gglinedensity/MSRV: 1.70.0
 Imports: cli, ggplot2, lifecycle, rlang, scales, vctrs
-URL: https://github.com/hrryt/gglinedensity
+URL: https://github.com/hrryt/gglinedensity,
+        https://hrryt.github.io/gglinedensity/
 BugReports: https://github.com/hrryt/gglinedensity/issues
 NeedsCompilation: yes
-Packaged: 2025-05-08 12:16:50 UTC; harry
+Packaged: 2025-05-20 16:33:40 UTC; harry
 Author: Harry Thompson [cre, aut, cph],
   Dominik Moritz [aut] (Rust original,
     <https://github.com/domoritz/line-density-rust>),
@@ -35,4 +37,4 @@ Author: Harry Thompson [cre, aut, cph],
     <https://yutannihilation.github.io/string2path>)
 Maintainer: Harry Thompson <harry@mayesfield.uk>
 Repository: CRAN
-Date/Publication: 2025-05-09 23:00:02 UTC
+Date/Publication: 2025-05-20 16:50:02 UTC
