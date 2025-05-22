@@ -38,8 +38,8 @@ NULL
 }
 
 
-`line_density` <- function(`xy`, `width`, `height`, `as_is`) {
-  .Call(savvy_line_density__impl, `xy`, `width`, `height`, `as_is`)
+`line_density` <- function(`xy`, `width`, `height`) {
+  .Call(savvy_line_density__impl, `xy`, `width`, `height`)
 }
 
 

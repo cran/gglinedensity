@@ -1,6 +1,6 @@
 Package: gglinedensity
 Title: Make DenseLines Heatmaps with 'ggplot2'
-Version: 0.1.1
+Version: 0.2.0
 Description: Visualise overlapping time series lines as a heatmap of line
     density. Provides a 'ggplot2' statistic implementing the DenseLines
     algorithm, which "normalizes time series by the arc length to compute
@@ -21,12 +21,14 @@ Encoding: UTF-8
 RoxygenNote: 7.3.2
 SystemRequirements: Cargo (Rust's package manager), rustc >= 1.70.0
 Config/gglinedensity/MSRV: 1.70.0
-Imports: cli, ggplot2, lifecycle, rlang, scales, vctrs
+Imports: cli, ggplot2, lifecycle, rlang, scales, vctrs, vdiffr
 URL: https://github.com/hrryt/gglinedensity,
         https://hrryt.github.io/gglinedensity/
 BugReports: https://github.com/hrryt/gglinedensity/issues
+Suggests: testthat (>= 3.0.0)
+Config/testthat/edition: 3
 NeedsCompilation: yes
-Packaged: 2025-05-20 16:33:40 UTC; harry
+Packaged: 2025-05-21 00:11:44 UTC; harry
 Author: Harry Thompson [cre, aut, cph],
   Dominik Moritz [aut] (Rust original,
     <https://github.com/domoritz/line-density-rust>),
@@ -37,4 +39,4 @@ Author: Harry Thompson [cre, aut, cph],
     <https://yutannihilation.github.io/string2path>)
 Maintainer: Harry Thompson <harry@mayesfield.uk>
 Repository: CRAN
-Date/Publication: 2025-05-20 16:50:02 UTC
+Date/Publication: 2025-05-22 23:40:02 UTC

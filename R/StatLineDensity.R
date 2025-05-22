@@ -9,7 +9,8 @@ StatLineDensity <- ggplot2::ggproto(
   extra_params = c("na.rm", "orientation"),
   setup_params = function(data, params) {
     params$flipped_aes <- ggplot2::has_flipped_aes(
-      data, params, ambiguous = TRUE
+      data, params,
+      ambiguous = TRUE
     )
     if (is.character(params$drop)) {
       params$drop <- !identical(params$drop, "none")
@@ -34,7 +35,8 @@ StatLineDensity <- ggplot2::ggproto(
     )
     ggplot2::remove_missing(
       data, params$na.rm,
-      c(required_aes, self$non_missing_aes), "stat_line_density", finite = TRUE
+      c(required_aes, self$non_missing_aes), "stat_line_density",
+      finite = TRUE
     )
     params <- params[intersect(names(params), self$parameters())]
     args <- c(list(data = quote(data), scales = quote(scales)), params)
@@ -51,11 +53,11 @@ StatLineDensity <- ggplot2::ggproto(
   },
   compute_panel = function(data, scales, binwidth = NULL, bins = 30, breaks = NULL,
                            origin = NULL, drop = TRUE, boundary = NULL, closed = NULL,
-                           center = NULL, normalise = TRUE, flipped_aes = FALSE) {
+                           center = NULL, flipped_aes = FALSE) {
     boundary <- boundary %||% if (is.null(center)) list(x = 0, y = 0)
     bins <- dual_param(bins, list(x = 30, y = 30))
 
-    if(flipped_aes) {
+    if (flipped_aes) {
       scales_x <- scales$y
       scales_y <- scales$x
     } else {
@@ -78,18 +80,24 @@ StatLineDensity <- ggplot2::ggproto(
     x_binned <- (data$x - min(xbin$breaks)) * width / (max(xbin$breaks) - min(xbin$breaks))
     y_binned <- (data$y - min(ybin$breaks)) * height / (max(ybin$breaks) - min(ybin$breaks))
 
-    xy <- lapply(split(cbind(x_binned, y_binned), data$group), as.double)
-    rast <- line_density(xy, width, height, !normalise)
+    xy <- split(cbind(x_binned, y_binned), data$group)
+    xy <- lapply(xy, as.double)
+
+    cd <- line_density(xy, width, height)
+    cd <- matrix(cd, ncol = 2)
 
     new_x <- xbin$breaks[-1] - diff(xbin$breaks) / 2
     new_y <- ybin$breaks[-1] - diff(ybin$breaks) / 2
 
-    xy <- expand.grid(x = new_x, y = new_y)
-    xy$density <- rast
+    out <- expand.grid(x = new_x, y = new_y)
+    out$count <- cd[, 1]
+    out$ncount <- out$count / max(out$count, na.rm = TRUE)
+    out$density <- cd[, 2]
+    out$ndensity <- out$density / max(out$density, na.rm = TRUE)
 
-    if(drop) xy <- xy[rast != 0, ]
+    if (drop) out <- out[out$count != 0, ]
 
-    xy$flipped_aes <- flipped_aes
-    ggplot2::flip_data(xy, flipped_aes)
+    out$flipped_aes <- flipped_aes
+    ggplot2::flip_data(out, flipped_aes)
   }
 )
